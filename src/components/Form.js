@@ -1,14 +1,22 @@
 import React from 'react'
 
-function Form () {
+export default function Form ({onCreate}) {
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        const title = event.target.title.value
+        const description = event.target.description.value
+        const tags = event.target.tags.value.split(', ')
+        
+        onCreate({title, description, tags})
+    }
+
     return (
-        <div>
-            <input type="text" name="title" placeholder="title" ></input>
+        <form onSubmit={handleSubmit}>
+            <input type="text" name="title" placeholder="title"></input>
             <input type="text" name="description" placeholder="description"></input>
             <input type="text" name="tags" placeholder="tags"></input>
             <button>Add card</button>
-        </div>
+        </form>
     )
 }
-
-export default Form
