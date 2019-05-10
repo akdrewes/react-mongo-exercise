@@ -6,6 +6,14 @@ const cardSchema = new mongoose.Schema({
     required: true,
     get: value => value.toUpperCase(),
   },
+  description: {
+    type: String,
+    default: "",
+    get: value => value.toUpperCase(),
+  },
+  tags: {
+    type: [String]
+  }
 })
 
 module.exports = mongoose.model('Card', cardSchema)

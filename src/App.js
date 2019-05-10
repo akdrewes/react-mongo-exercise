@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import {getCards} from './services'
+import CardList from './components/CardList'
+import Form from './components/Form'
 
 export default class App extends Component {
   state = {
@@ -6,23 +9,18 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/cards')
-      .then(res => res.json())
-      .then(data => this.setState({ cards: data }))
-      .catch(error => console.log(error))
+    getCards()
+    .then(data => this.setState({ cards: data }))
+    .catch(error => console.log(error))
   }
 
   render() {
-    const { cards } = this.state
 
     return (
       <main>
         <h1>Cards</h1>
-        <ul>
-          {cards.map(card => (
-            <li key={card._id}>{card.title}</li>
-          ))}
-        </ul>
+        <Form />
+        <CardList cards={this.state.cards} />
       </main>
     )
   }
