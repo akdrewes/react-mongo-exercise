@@ -4,9 +4,10 @@ export default function Form ({onCreate}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        const title = event.target.title.value
-        const description = event.target.description.value
-        const tags = event.target.tags.value.split(', ')
+        const form = event.target
+        const title = form.title.value
+        const description = form.description.value
+        const tags = form.tags.value.split(', ')
         
         onCreate({title, description, tags})
     }

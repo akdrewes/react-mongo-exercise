@@ -12,7 +12,11 @@ const cardSchema = new mongoose.Schema({
     get: value => value.toUpperCase(),
   },
   tags: {
-    type: [String]
+    type: [String],
+  },
+  bookmarked: {
+    type: Boolean,
+    default: false,
   }
 })
 
