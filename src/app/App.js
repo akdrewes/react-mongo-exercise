@@ -4,6 +4,19 @@ import CardPage from '../cards/CardPage'
 import CreatePage from '../create/CreatePage'
 import Header from './Header'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import styled from 'styled-components'
+
+const GlobalStyles = styled.div`
+  box-sizing: border-box;
+`;
+
+const MainStyles = styled.main`
+  margin: 0;
+  padding: 20px;
+  font-family: sans-serif;
+  color: darkslategray;
+  background: papayawhip;
+`;
 
 export default function App() {
   const [cards, setCards] = useState(getLocal('cards') || [])
@@ -46,15 +59,17 @@ export default function App() {
   }
 
   return (
-    <main>
-      <BrowserRouter>
-        <Header />
-        <h1>Cards</h1>
-        <Switch>
-          <Route path="/create" render={props => <CreatePage createCard={handleCreateCard} {...props} />} />
-          <Route exact path="/" render={() => <CardPage cards={cards} onToggleBookmark={handleToggleBookmark} onDelete={handleDeleteCard} />} />
-        </Switch>  
-      </BrowserRouter>
-    </main>
+    <GlobalStyles>
+      <MainStyles>
+        <BrowserRouter>
+          <Header />
+          <h1>Cards</h1>
+          <Switch>
+            <Route path="/create" render={props => <CreatePage createCard={handleCreateCard} {...props} />} />
+            <Route exact path="/" render={() => <CardPage cards={cards} onToggleBookmark={handleToggleBookmark} onDelete={handleDeleteCard} />} />
+          </Switch>  
+        </BrowserRouter>
+      </MainStyles> 
+    </GlobalStyles>
   )
 }
