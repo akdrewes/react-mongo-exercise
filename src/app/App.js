@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {getCards, postCard, setLocal, getLocal, patchCard, deleteCard} from './services'
-import CardList from './components/CardList'
-import Form from './components/Form'
-import Header from './components/Header'
+import {getCards, postCard, setLocal, getLocal, patchCard, deleteCard} from '../services'
+import CardPage from '../cards/CardPage'
+import CreatePage from '../create/CreatePage'
+import Header from './Header'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 export default class App extends Component {
@@ -26,7 +26,7 @@ export default class App extends Component {
     }
   }
 
-  handleCreate = ({title, description, tags}) => {
+  handleCreateCard = ({title, description, tags}) => {
     const {cards} = this.state;
     postCard({title, description, tags})
     .then(card => this.setState({ cards: [card, ...cards] }))
@@ -49,7 +49,7 @@ export default class App extends Component {
     .catch(err => console.log(err))
   }
 
-  handleDelete = deletedCard => {
+  handleDeleteCard = deletedCard => {
     const {cards} = this.state;
     deleteCard(deletedCard._id)
     .then(deletedCard => {
@@ -68,8 +68,8 @@ export default class App extends Component {
           <Header />
           <h1>Cards</h1>
           <Switch>
-            <Route path="/create" render={props => <Form onCreate={this.handleCreate} {...props} />} />
-            <Route exact path="/" render={() => <CardList cards={this.state.cards} onToggleBookmark={this.handleToggleBookmark} onDelete={this.handleDelete} />} />
+            <Route path="/create" render={props => <CreatePage createCard={this.handleCreateCard} {...props} />} />
+            <Route exact path="/" render={() => <CardPage cards={this.state.cards} onToggleBookmark={this.handleToggleBookmark} onDelete={this.handleDeleteCard} />} />
           </Switch>  
         </BrowserRouter>
       </main>
