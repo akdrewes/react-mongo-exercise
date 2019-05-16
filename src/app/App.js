@@ -4,18 +4,20 @@ import CardPage from '../cards/CardPage'
 import CreatePage from '../create/CreatePage'
 import Header from './Header'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import styled from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 
-const GlobalStyles = styled.div`
+const GlobalStyle = createGlobalStyle`
+* {
   box-sizing: border-box;
-`;
+}
 
-const MainStyles = styled.main`
+body {
   margin: 0;
   padding: 20px;
   font-family: sans-serif;
   color: darkslategray;
   background: papayawhip;
+}
 `;
 
 export default function App() {
@@ -59,9 +61,9 @@ export default function App() {
   }
 
   return (
-    <GlobalStyles>
-      <MainStyles>
-        <BrowserRouter>
+    <main>
+      <BrowserRouter>
+        <GlobalStyle />
           <Header />
           <h1>Cards</h1>
           <Switch>
@@ -69,7 +71,6 @@ export default function App() {
             <Route exact path="/" render={() => <CardPage cards={cards} onToggleBookmark={handleToggleBookmark} onDelete={handleDeleteCard} />} />
           </Switch>  
         </BrowserRouter>
-      </MainStyles> 
-    </GlobalStyles>
+      </main>
   )
 }
