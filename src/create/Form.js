@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function Form ({onFormSubmit, ...props}) {
 
@@ -22,4 +23,8 @@ export default function Form ({onFormSubmit, ...props}) {
             <button>Add card</button>
         </form>
     )
+}
+
+Form.propTypes = {
+    onFormSubmit: PropTypes.func.isRequired
 }

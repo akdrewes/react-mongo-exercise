@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from 'prop-types'
 import Tag from "./Tag"
 
 export default function Card ({title, description, tags, bookmarked, onToggleBookmark, onDelete}) {
@@ -11,4 +12,13 @@ export default function Card ({title, description, tags, bookmarked, onToggleBoo
             <button onClick={onDelete}>Delete card</button>
         </li>
     )
+}
+
+Card.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    tags: PropTypes.array,
+    bookmarked: PropTypes.bool.isRequired,
+    onToggleBookmark: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
