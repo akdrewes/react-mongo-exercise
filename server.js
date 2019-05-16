@@ -16,8 +16,15 @@ app.post('/cards', (req, res) => {
 })
 
 app.patch('/cards/:id', (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   Card.findByIdAndUpdate(id, req.body, { new: true })
   .then(card => res.json(card))
-  .catch(err => res.json(err))
+  .catch(err => res.json(err));
+})
+
+app.delete('/cards/:id', (req, res) => {
+  const { id } = req.params;
+  Card.findByIdAndDelete(id)
+  .then(card => res.json(card))
+  .catch(err => res.json(err));
 })

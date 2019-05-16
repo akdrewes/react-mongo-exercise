@@ -25,6 +25,13 @@ export function patchCard(bookmarked, _id) {
   .then(res => res.json())
 }
 
+export function deleteCard(_id) {
+  return fetch(`/cards/${_id}`, {
+    method: 'DELETE',
+  })
+  .then(res => res.json())
+}
+
 export function setLocal(name, data) {
     localStorage.setItem(name, JSON.stringify(data))
   }

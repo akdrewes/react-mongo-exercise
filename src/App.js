@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getCards, postCard, setLocal, getLocal, patchCard} from './services'
+import {getCards, postCard, setLocal, getLocal, patchCard, deleteCard} from './services'
 import CardList from './components/CardList'
 import Form from './components/Form'
 import Header from './components/Header'
@@ -49,6 +49,18 @@ export default class App extends Component {
     .catch(err => console.log(err))
   }
 
+  handleDelete = deletedCard => {
+    const {cards} = this.state;
+    deleteCard(deletedCard._id)
+    .then(deletedCard => {
+      const index = cards.findIndex(oldCard => oldCard._id === deletedCard._id);
+      this.setState({
+        cards: [...cards.slice(0, index), ...cards.slice(index + 1)]
+      })
+    })
+    .catch(err => console.log(err))
+  }
+
   render() {
     return (
       <main>
@@ -57,7 +69,7 @@ export default class App extends Component {
           <h1>Cards</h1>
           <Switch>
             <Route path="/create" render={props => <Form onCreate={this.handleCreate} {...props} />} />
-            <Route exact path="/" render={() => <CardList cards={this.state.cards} onToggleBookmark={this.handleToggleBookmark}/>} />
+            <Route exact path="/" render={() => <CardList cards={this.state.cards} onToggleBookmark={this.handleToggleBookmark} onDelete={this.handleDelete} />} />
           </Switch>  
         </BrowserRouter>
       </main>
