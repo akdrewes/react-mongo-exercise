@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {getCards, postCard, setLocal, getLocal, patchCard} from './services'
 import CardList from './components/CardList'
 import Form from './components/Form'
+import Header from './components/Header'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 export default class App extends Component {
   state = {
@@ -50,9 +52,14 @@ export default class App extends Component {
   render() {
     return (
       <main>
-        <h1>Cards</h1>
-        <Form onCreate={this.handleCreate} />
-        <CardList cards={this.state.cards} onToggleBookmark={this.handleToggleBookmark} />
+        <BrowserRouter>
+          <Header />
+          <h1>Cards</h1>
+          <Switch>
+            <Route path="/create" render={props => <Form onCreate={this.handleCreate} {...props} />} />
+            <Route exact path="/" render={() => <CardList cards={this.state.cards} onToggleBookmark={this.handleToggleBookmark}/>} />
+          </Switch>  
+        </BrowserRouter>
       </main>
     )
   }

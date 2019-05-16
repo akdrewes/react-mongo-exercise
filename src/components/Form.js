@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Form ({onCreate}) {
+export default function Form ({onCreate, ...props}) {
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -10,6 +10,8 @@ export default function Form ({onCreate}) {
         const tags = form.tags.value.split(', ')
         
         onCreate({title, description, tags})
+
+        props.history.push('/')
     }
 
     return (
